@@ -9,7 +9,7 @@ const Home = () =>{
     
     const fetchUser = async() =>{
 
-        const res = await fetch("https://finance-tracker-six-ecru.vercel.app/home", {
+        const res = await fetch("https://finance-tracker-pi-two.vercel.app/home", {
           method: 'GET',
           
           credentials: 'include'

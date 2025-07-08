@@ -12,7 +12,7 @@
 
     const fetchIncome = async () => {
       try {
-        const res = await fetch("https://finance-tracker-six-ecru.vercel.app/income", {
+        const res = await fetch("https://finance-tracker-pi-two.vercel.app/income", {
           method: "GET",
           
           credentials:'include'
@@ -37,7 +37,7 @@
         return;
       }
       try {
-        const res = await fetch("https://finance-tracker-six-ecru.vercel.app/income", {
+        const res = await fetch("https://finance-tracker-pi-two.vercel.app/income", {
           method: "POST",
           headers: {
           "Content-Type": "application/json",

@@ -10,7 +10,7 @@ const Signup = () => {
 
 const handleSignup = async (data) => {
   try {
-    const res = await fetch("https://finance-tracker-six-ecru.vercel.app/auth/signup", {
+    const res = await fetch("https://finance-tracker-pi-two.vercel.app/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

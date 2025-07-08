@@ -10,7 +10,7 @@ const Login = () => {
 
   const handleLogin = async (data) => {
     try {
-      const res = await fetch('https://finance-tracker-six-ecru.vercel.app/auth/login', {
+      const res = await fetch('https://finance-tracker-pi-two.vercel.app/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials:'include',
@@ -37,7 +37,7 @@ const Login = () => {
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      const res = await fetch("https://finance-tracker-six-ecru.vercel.app/auth/google-login", {
+      const res = await fetch("https://finance-tracker-pi-two.vercel.app/auth/google-login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

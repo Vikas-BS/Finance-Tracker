@@ -19,7 +19,7 @@ const IncomePieChart = ({ trigger }) => {
   const [categoryColorMap, setCategoryColorMap] = useState({});
 
   const fetchIncome = async () => {
-    const res = await fetch("https://finance-tracker-six-ecru.vercel.app/income", {
+    const res = await fetch("https://finance-tracker-pi-two.vercel.app/income", {
       
       credentials:'include'
     });

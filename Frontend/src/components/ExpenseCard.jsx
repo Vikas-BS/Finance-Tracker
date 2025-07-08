@@ -17,7 +17,7 @@ const ExpenseCard = ({ onTotalChange , onExpenseAdded }) => {
 
   const fetchExpense = async () => {
     try {
-      const res = await fetch("https://finance-tracker-six-ecru.vercel.app/expense", {
+      const res = await fetch("https://finance-tracker-pi-two.vercel.app/expense", {
         method: "GET",
         credentials: 'include'
       });
@@ -45,7 +45,7 @@ const ExpenseCard = ({ onTotalChange , onExpenseAdded }) => {
     }
 
     try {
-      const res = await fetch("https://finance-tracker-six-ecru.vercel.app/expense", {
+      const res = await fetch("https://finance-tracker-pi-two.vercel.app/expense", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
