@@ -23,7 +23,9 @@ app.use('/api/income', incomeRoutes);
 app.use('/api/expense', expenseRoutes);
 app.use('/api/home',homeRoutes);
 app.use('/api/user',userRoutes);
-
+app.get('/' ,(req,res) =>{
+  res.json("hello");
+})
 
 
 const PORT = process.env.PORT || 5173;
