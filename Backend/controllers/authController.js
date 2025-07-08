@@ -30,8 +30,7 @@ export const registerUser = async (req, res) => {
     res.cookie("authcookie", token, {
       httpOnly: true, 
       secure: true,
-      sameSite: "Lax", 
-      domain: 'localhost',
+      sameSite: "None", 
       maxAge: 86400000,
     });
     res.status(201).json({
@@ -63,8 +62,7 @@ export const loginUser = async (req, res) => {
     res.cookie("authcookie", token, {
       httpOnly: true, 
       secure: true,
-      sameSite: "Lax", 
-      domain: 'localhost',
+      sameSite: "None", 
       maxAge: 86400000,
     });
 
@@ -104,8 +102,7 @@ export const googleLogin = async (req, res) => {
     res.cookie("authcookie", jwtToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "Lax",
-      domain: 'localhost',
+      sameSite: "None",
       path:"/",
       maxAge: 86400000,
     });
@@ -141,7 +138,7 @@ export const setPassword = async (req, res) => {
 export const logOutUser = async (req , res) =>{
   res.clearCookie("authcookie" ,{
     httpOnly: true,
-    sameSite: "Lax",
+    sameSite: "None",
     secure: true, 
   });
   res.status(200).json({ message: "Logged out successfully" });
