@@ -21,12 +21,13 @@ export const registerUser = async (req, res) => {
 
     const hash = await bcrypt.hash(password, 10);
     const user = await User.create({ name, email, password: hash });
-
+    
     const token = jwt.sign(
       { userId: user._id, name: user.name, email: user.email },
       SECRET_KEY,
       { expiresIn: '1d' }
     );
+    console.log("👉 Setting authcookie with token:", token);
     res.cookie("authcookie", token, {
       httpOnly: true, 
       secure: true,
@@ -54,12 +55,13 @@ export const loginUser = async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
-
+    
     const token = jwt.sign(
       { userId: user._id, name: user.name, email: user.email },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '1d' }
     );
+    console.log("👉 Setting authcookie with token:", token);
     res.cookie("authcookie", token, {
       httpOnly: true, 
       secure: true,
@@ -73,7 +75,6 @@ export const loginUser = async (req, res) => {
       token,
       user: { name: user.name, email: user.email }
     });
-    return res
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -101,6 +102,7 @@ export const googleLogin = async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '1d' }
     );
+    console.log("👉 Setting authcookie with token:", token);
     res.cookie("authcookie", jwtToken, {
       httpOnly: true,
       secure: true,
