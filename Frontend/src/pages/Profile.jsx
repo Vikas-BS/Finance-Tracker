@@ -113,7 +113,7 @@ const Profile = () => {
         showToast("Profile updated successfully!");
 
         const refreshed = await fetch(
-          `${import.meta.env.VITE_API_URL}/user/profile`,
+          `${import.meta.env.VITE_API_URL}/api/user/profile`,
           {
             
             credentials:'include'
