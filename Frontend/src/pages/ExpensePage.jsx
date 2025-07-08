@@ -26,7 +26,7 @@ const Expense = () =>{
 
     const fetchexpense = async() =>{
       try{
-        const res = await fetch("http://localhost:4000/api/expense",{
+        const res = await fetch("https://finance-tracker-six-ecru.vercel.app/expense",{
           
           credentials:'include'
         })

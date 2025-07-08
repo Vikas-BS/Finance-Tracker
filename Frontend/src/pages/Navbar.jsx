@@ -17,7 +17,7 @@ const Navbar = () => {
     const fetchUser = async () =>{
       
       try{
-        const res = await fetch("http://localhost:4000/api/home",{
+        const res = await fetch("https://finance-tracker-six-ecru.vercel.app/home",{
           method:'GET',
           credentials:'include'
         });
@@ -66,7 +66,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try{
-      await fetch("http://localhost:4000/api/auth/logout",{
+      await fetch("https://finance-tracker-six-ecru.vercel.app/auth/logout",{
         method:'POST',
         credentials:'include',
       });

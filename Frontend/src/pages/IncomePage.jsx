@@ -25,7 +25,7 @@ const Income = () => {
 
   const fetchIncome = async () => {
     try {
-      const res = await fetch("http://localhost:4000/api/income", {
+      const res = await fetch("https://finance-tracker-six-ecru.vercel.app/income", {
         
         credentials:'include'
       });
