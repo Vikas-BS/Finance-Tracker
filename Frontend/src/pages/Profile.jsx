@@ -25,7 +25,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch("https://finance-tracker-pi-two.vercel.app/user/profile", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/user/profile`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -98,7 +98,7 @@ const Profile = () => {
 
     setSaving(true);
     try {
-      const res = await fetch("https://finance-tracker-pi-two.vercel.app/user/profile", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/user/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -113,7 +113,7 @@ const Profile = () => {
         showToast("Profile updated successfully!");
 
         const refreshed = await fetch(
-          "https://finance-tracker-pi-two.vercel.app/user/profile",
+          `${import.meta.env.VITE_API_URL}/user/profile`,
           {
             
             credentials:'include'

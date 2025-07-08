@@ -17,7 +17,7 @@ const Navbar = () => {
     const fetchUser = async () =>{
       
       try{
-        const res = await fetch("https://finance-tracker-pi-two.vercel.app/home",{
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/home`,{
           method:'GET',
           credentials:'include'
         });
@@ -66,7 +66,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try{
-      await fetch("https://finance-tracker-pi-two.vercel.app/auth/logout",{
+      await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`,{
         method:'POST',
         credentials:'include',
       });

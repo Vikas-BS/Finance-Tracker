@@ -19,7 +19,7 @@ const ExpensePieChart = ({ onChange }) => {
   const [categoryColorMap, setCategoryColorMap] = useState({});
 
   const fetchExpense = async () => {
-    const res = await fetch("https://finance-tracker-pi-two.vercel.app/expense", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/expense`, {
       
       credentials:'include'
     });

@@ -26,7 +26,7 @@ const Expense = () =>{
 
     const fetchexpense = async() =>{
       try{
-        const res = await fetch("https://finance-tracker-pi-two.vercel.app/expense",{
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/expense`,{
           
           credentials:'include'
         })

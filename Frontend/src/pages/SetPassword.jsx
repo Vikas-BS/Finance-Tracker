@@ -10,7 +10,7 @@ const SetPassword = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch('https://finance-tracker-pi-two.vercel.app/auth/set-password', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/set-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials:'include',
