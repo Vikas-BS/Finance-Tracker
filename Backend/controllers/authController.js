@@ -32,6 +32,7 @@ export const registerUser = async (req, res) => {
       secure: true,
       sameSite: "None", 
       maxAge: 86400000,
+      path:"/",
     });
     res.status(201).json({
       message: 'User registered',
@@ -64,6 +65,7 @@ export const loginUser = async (req, res) => {
       secure: true,
       sameSite: "None", 
       maxAge: 86400000,
+      path:"/",
     });
 
     res.status(200).json({
@@ -140,6 +142,7 @@ export const logOutUser = async (req , res) =>{
     httpOnly: true,
     sameSite: "None",
     secure: true, 
+    path:"/",
   });
   res.status(200).json({ message: "Logged out successfully" });
 }
