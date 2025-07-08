@@ -9,7 +9,7 @@ const Home = () =>{
     
     const fetchUser = async() =>{
 
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/home`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/home`, {
           method: 'GET',
           
           credentials: 'include'

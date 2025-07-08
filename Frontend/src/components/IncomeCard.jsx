@@ -12,7 +12,7 @@
 
     const fetchIncome = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/income`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/income`, {
           method: "GET",
           
           credentials:'include'
@@ -37,7 +37,7 @@
         return;
       }
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/income`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/income`, {
           method: "POST",
           headers: {
           "Content-Type": "application/json",

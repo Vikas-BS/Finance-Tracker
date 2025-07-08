@@ -25,7 +25,7 @@ const Income = () => {
 
   const fetchIncome = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/income`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/income`, {
         
         credentials:'include'
       });

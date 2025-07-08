@@ -10,7 +10,7 @@ const Login = () => {
 
   const handleLogin = async (data) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials:'include',
@@ -37,7 +37,7 @@ const Login = () => {
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/google-login`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/google-login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

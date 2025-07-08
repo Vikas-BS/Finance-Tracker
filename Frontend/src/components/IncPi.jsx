@@ -19,7 +19,7 @@ const IncomePieChart = ({ trigger }) => {
   const [categoryColorMap, setCategoryColorMap] = useState({});
 
   const fetchIncome = async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/income`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/income`, {
       
       credentials:'include'
     });

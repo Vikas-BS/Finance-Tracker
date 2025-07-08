@@ -26,7 +26,7 @@ const Expense = () =>{
 
     const fetchexpense = async() =>{
       try{
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/expense`,{
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/expense`,{
           
           credentials:'include'
         })

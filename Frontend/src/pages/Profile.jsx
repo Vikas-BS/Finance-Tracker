@@ -25,7 +25,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/user/profile`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/profile`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -98,7 +98,7 @@ const Profile = () => {
 
     setSaving(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/user/profile`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

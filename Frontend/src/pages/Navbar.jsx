@@ -17,7 +17,7 @@ const Navbar = () => {
     const fetchUser = async () =>{
       
       try{
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/home`,{
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/home`,{
           method:'GET',
           credentials:'include'
         });
@@ -66,7 +66,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try{
-      await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`,{
+      await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`,{
         method:'POST',
         credentials:'include',
       });

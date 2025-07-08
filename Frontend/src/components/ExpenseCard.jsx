@@ -17,7 +17,7 @@ const ExpenseCard = ({ onTotalChange , onExpenseAdded }) => {
 
   const fetchExpense = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/expense`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/expense`, {
         method: "GET",
         credentials: 'include'
       });
@@ -45,7 +45,7 @@ const ExpenseCard = ({ onTotalChange , onExpenseAdded }) => {
     }
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/expense`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/expense`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
