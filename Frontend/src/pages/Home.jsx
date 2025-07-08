@@ -15,7 +15,7 @@ const Home = () =>{
           credentials: 'include'
         });
         const data = await res.json();
-        console.log(data)
+        
         if(res.ok){
             setUser(data.user)
         }else{
