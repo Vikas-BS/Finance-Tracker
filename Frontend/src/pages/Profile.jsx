@@ -26,9 +26,6 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/profile`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
           credentials:'include'
         })
         const data = await res.json();

@@ -48,7 +48,6 @@ const Login = () => {
 
       const result = await res.json();
       if (res.ok) {
-        localStorage.setItem('token', result.token);
         if (result.user.name) {
           setUser(result.user.name);
         }if (!result.user.hasPassword) {
