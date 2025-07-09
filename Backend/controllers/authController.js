@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
       SECRET_KEY,
       { expiresIn: '1d' }
     );
-    console.log("👉 Setting authcookie with token:", token);
+  
     res.cookie("authcookie", token, {
       httpOnly: true, 
       secure: true,
@@ -61,7 +61,7 @@ export const loginUser = async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '1d' }
     );
-    console.log("👉 Setting authcookie with token:", token);
+    
     res.cookie("authcookie", token, {
       httpOnly: true, 
       secure: true,
@@ -102,7 +102,7 @@ export const googleLogin = async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '1d' }
     );
-    console.log("👉 Setting authcookie with token:", token);
+    
     res.cookie("authcookie", jwtToken, {
       httpOnly: true,
       secure: true,
