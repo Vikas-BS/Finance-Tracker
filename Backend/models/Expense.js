@@ -15,6 +15,7 @@ const expenseSchema = new mongoose.Schema(
     amount: {
       type: Number,
       required: true,
+      min:10,
     },
     category: {
       type: String,

@@ -1,31 +1,32 @@
 import Stocks from "../models/Stocks.js"
 
 
-export const addStocks = async(req,res) =>{
-    const {stocks} = req.body;
+export const addStocks = async (req, res) => {
+  const { stocks } = req.body;
 
-    try{
-        const stock = await Stocks.create({
-            user: req.user.userId,
-            stocks,
-        
-        });
+  try {
+    const updated = await Stocks.findOneAndUpdate(
+      { user: req.user.userId },
+      { $addToSet: { stocks: { $each: stocks.map(s => s.toUpperCase()) } } },
+      { new: true, upsert: true }
+    );
 
-        console.log('Stocks saved:', stock);
-        res.status(201).json(stock);
-    }catch(err){
-        res.status(500).json({message:err.message})
-    }
-}
+    res.status(201).json(updated); // return full doc
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
-export const getStocks = async(req,res) =>{
-    try{
-        const stocks = await Stocks.find({user:req.user.userId});
-        res.json(stocks);
-    }catch(err){
-        res.status(500).json({message:err.message})
-    }
-}
+
+export const getStocks = async (req, res) => {
+  try {
+    const stocksDoc = await Stocks.findOne({ user: req.user.userId });
+    res.json(stocksDoc);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 
 
 export const deleteStock = async (req, res) => {
