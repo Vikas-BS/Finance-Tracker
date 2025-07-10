@@ -72,6 +72,8 @@ const Login = () => {
           <GoogleLogin
             onSuccess={handleGoogleSuccess}
             onError={() => console.log('Google login failed')}
+            useOneTap={false}
+            auto_select={false}
           
           />
         </div>
