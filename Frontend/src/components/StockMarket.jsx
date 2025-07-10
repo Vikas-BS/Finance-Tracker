@@ -50,7 +50,7 @@ const StockMarket = () => {
       setLoading(true);
 
       const res = await fetch(
-        `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${FINNHUB_API_KEY}`
+        `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${import.meta.env.FINNHUB_API_KEY}`
       );
       const data = await res.json();
 
