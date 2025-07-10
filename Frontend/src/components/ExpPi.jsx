@@ -4,7 +4,6 @@ import {
   Pie,
   Cell,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
@@ -20,9 +19,9 @@ const ExpensePieChart = ({ onChange }) => {
 
   const fetchExpense = async () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/expense`, {
-      
-      credentials:'include'
+      credentials: 'include',
     });
+
     const result = await res.json();
     const rawData = Array.isArray(result) ? result : result.data || [];
 
@@ -38,14 +37,12 @@ const ExpensePieChart = ({ onChange }) => {
       value,
     }));
 
-   
     const newColorMap = { ...categoryColorMap };
     let colorIndex = Object.keys(newColorMap).length;
 
     chartData.forEach((item) => {
       if (!newColorMap[item.name]) {
-        newColorMap[item.name] =
-          BASE_COLORS[colorIndex % BASE_COLORS.length];
+        newColorMap[item.name] = BASE_COLORS[colorIndex % BASE_COLORS.length];
         colorIndex++;
       }
     });
@@ -59,12 +56,12 @@ const ExpensePieChart = ({ onChange }) => {
   }, [onChange]);
 
   return (
-    <div className="w-full h-[400px] flex flex-col">
-      <h3 className="text-lg font-semibold mb-4 text-black">
+    <div className="w-full rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md p-4 sm:p-6 min-h-[360px] max-h-[500px]">
+      <h3 className="text-base sm:text-lg font-semibold mb-4 text-gray-800 dark:text-white text-center sm:text-left">
         Expense by Category
       </h3>
 
-      <div className="flex-1">
+      <div className="w-full h-[250px] sm:h-[300px] md:h-[360px]">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
@@ -73,7 +70,8 @@ const ExpensePieChart = ({ onChange }) => {
               nameKey="name"
               cx="50%"
               cy="50%"
-              outerRadius={100}
+              outerRadius="80%"
+              paddingAngle={2}
               
             >
               {expenseData.map((entry, index) => (

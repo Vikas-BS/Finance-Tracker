@@ -30,8 +30,7 @@ const Login = () => {
         toast.error('Login failed');
       }
     } catch (err) {
-      console.error(err);
-      alert('Error during login');
+      toast.error('Error during login');
     }
   };
 
@@ -48,6 +47,7 @@ const Login = () => {
 
       const result = await res.json();
       if (res.ok) {
+        localStorage.setItem('token', result.token);
         if (result.user.name) {
           setUser(result.user.name);
         }if (!result.user.hasPassword) {
@@ -60,8 +60,7 @@ const Login = () => {
         toast.error( 'Google login failed');
       }
     } catch (err) {
-      console.error(err);
-      alert('Error during Google login');
+      toast.error('Error during Google login');
     }
   };
 

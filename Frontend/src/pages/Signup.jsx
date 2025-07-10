@@ -31,8 +31,7 @@ const handleSignup = async (data) => {
       toast.error("Signup failed");
     }
   } catch (err) {
-    console.error(err);
-    alert("Error during signup");
+    toast.error("Error during signup");
   }
 };
 

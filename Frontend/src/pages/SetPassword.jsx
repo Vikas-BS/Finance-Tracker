@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const SetPassword = () => {
   const [email, setEmail] = useState('');
@@ -20,14 +21,13 @@ const SetPassword = () => {
       const data = await res.json();
 
       if (res.ok) {
-        alert('Password set successfully! You can now login manually.');
+        toast.success('Password set successfully! You can now login manually.');
         navigate('/login');
       } else {
-        alert(data.message || 'Failed to set password');
+        toast.error(data.message || 'Failed to set password');
       }
     } catch (err) {
-      console.error(err);
-      alert('Something went wrong.');
+      toast.error('Something went wrong.');
     }
   };
 
