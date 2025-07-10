@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
 
-const FINNHUB_API_KEY = "d1nmb29r01qovv8k5j50d1nmb29r01qovv8k5j5g";
 
 const StockMarket = () => {
   const [input, setInput] = useState("");
@@ -22,7 +21,7 @@ const StockMarket = () => {
         const prices = await Promise.all(
           symbols.map(async (symbol) => {
             const res = await fetch(
-              `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${FINNHUB_API_KEY}`
+              `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${import.meta.env.FINNHUB_API_KEY}`
             );
             const data = await res.json();
             return {
