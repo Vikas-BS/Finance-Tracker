@@ -146,7 +146,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen w-screen bg-white py-8 px-4">
+    <div className="min-h-screen w-screen bg-white dark:bg-slate-950-custom dark:border-none  py-8 px-4">
       {toast && (
         <div className="fixed top-4 right-4 z-50 animate-slide-in">
           <div
@@ -162,23 +162,35 @@ const Profile = () => {
       )}
 
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border">
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6 text-center">
-            <h1 className="text-3xl font-bold text-white">Your Profile</h1>
-            <p className="text-blue-100">Manage your personal information</p>
+        <div className="bg-white dark:bg-slate-700 dark:border-none rounded-2xl shadow-xl overflow-hidden border">
+          <div
+            className="px-8 py-6 text-center 
+            bg-gradient-to-r from-blue-600 to-indigo-600 
+          dark:from-slate-800 dark:via-black-900 dark:to-gray-800 
+          dark:text-gray-200
+          "
+          >
+            <h1 className="text-3xl font-bold text-white dark:text-gray-200">Your Profile</h1>
+            <p className="text-blue-100 dark:text-gray-200">Manage your personal information</p>
           </div>
 
           <div className="p-8 space-y-8">
             {/* Profile Picture */}
             <div className="flex flex-col items-center space-y-6">
               <div className="relative">
-                <div className="w-32 h-32 rounded-full border-4 border-blue-200 shadow-lg overflow-hidden bg-gray-100">
+                <div className="w-32 h-32 rounded-full border-4 border-blue-200 dark:border-none shadow-lg overflow-hidden bg-gray-100">
                   {previewPic ? (
-                    <img src={previewPic} alt="Profile" className="w-full h-full object-cover" />
+                    <img
+                      src={previewPic}
+                      alt="Profile"
+                      className="w-full h-full object-cover"
+                    />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-blue-100">
                       <span className="text-3xl font-bold text-blue-600">
-                        {userData.name ? userData.name.charAt(0).toUpperCase() : "U"}
+                        {userData.name
+                          ? userData.name.charAt(0).toUpperCase()
+                          : "U"}
                       </span>
                     </div>
                   )}
@@ -188,7 +200,9 @@ const Profile = () => {
               <label
                 htmlFor="profile-pic"
                 className={`cursor-pointer bg-slate-200 text-black px-4 py-2 rounded-lg border border-gray-300 ${
-                  isEditing ? "hover:bg-gray-50" : "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  isEditing
+                    ? "hover:bg-gray-50"
+                    : "bg-gray-100 text-gray-400 cursor-not-allowed"
                 }`}
               >
                 Change Picture
@@ -206,17 +220,21 @@ const Profile = () => {
             {/* Inputs */}
             <div className="space-y-6">
               <div>
-                <label className="block mb-1 font-medium text-gray-700">Email</label>
+                <label className="block mb-1 font-medium text-gray-700 dark:text-gray-200">
+                  Email
+                </label>
                 <input
                   type="email"
                   value={userData.email || ""}
                   disabled
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white cursor-not-allowed text-black"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-none rounded-lg bg-white dark:bg-gray-400 cursor-not-allowed text-black"
                 />
               </div>
 
               <div>
-                <label className="block mb-1 font-medium text-gray-700">Full Name</label>
+                <label className="block mb-1 font-medium text-gray-700 dark:text-gray-200">
+                  Full Name
+                </label>
                 <input
                   type="text"
                   name="name"
@@ -224,15 +242,21 @@ const Profile = () => {
                   onChange={handleChange}
                   disabled={!isEditing}
                   placeholder="Enter your full name"
-                  className={`w-full bg-slate-200 text-black px-4 py-3 border rounded-lg ${
-                    !isEditing ? "bg-white text-black cursor-not-allowed" : "focus:ring-2 focus:ring-blue-200 focus:border-blue-200"
+                  className={`w-full bg-slate-200 dark:bg-gray-400 text-black px-4 py-3 border dark:border-none rounded-lg ${
+                    !isEditing
+                      ? "bg-white text-black cursor-not-allowed"
+                      : "focus:ring-2 focus:ring-blue-200 focus:border-blue-200"
                   } ${errors.name ? "border-red-500" : "border-gray-300"}`}
                 />
-                {errors.name && <p className="text-sm text-red-600">{errors.name}</p>}
+                {errors.name && (
+                  <p className="text-sm text-red-600">{errors.name}</p>
+                )}
               </div>
 
               <div>
-                <label className="block mb-1 font-medium text-gray-700">Phone Number</label>
+                <label className="block mb-1 font-medium text-gray-700 dark:text-gray-200">
+                  Phone Number
+                </label>
                 <input
                   type="tel"
                   name="phone"
@@ -240,11 +264,15 @@ const Profile = () => {
                   onChange={handleChange}
                   disabled={!isEditing}
                   placeholder="Enter your phone number"
-                  className={`w-full bg-slate-200 text-black px-4 py-3 border rounded-lg ${
-                    !isEditing ? "bg-white cursor-not-allowed" : "focus:ring-2 focus:ring-blue-200 focus:border-blue-200"
+                  className={`w-full bg-slate-200 dark:bg-gray-400 text-black px-4 py-3 border dark:border-none rounded-lg ${
+                    !isEditing
+                      ? "bg-white cursor-not-allowed"
+                      : "focus:ring-2 focus:ring-blue-200 focus:border-blue-200"
                   } ${errors.phone ? "border-red-500" : "border-gray-300"}`}
                 />
-                {errors.phone && <p className="text-sm text-red-600">{errors.phone}</p>}
+                {errors.phone && (
+                  <p className="text-sm text-red-600">{errors.phone}</p>
+                )}
               </div>
             </div>
 

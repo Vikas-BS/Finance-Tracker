@@ -56,8 +56,8 @@ const IncomePieChart = ({ trigger }) => {
   }, [trigger]);
 
   return (
-    <div className="w-full rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md p-4 sm:p-6 min-h-[360px] max-h-[500px]">
-      <h3 className="text-base sm:text-lg font-semibold mb-4 text-gray-800 dark:text-white text-center sm:text-left">
+    <div className="w-full rounded-2xl bg-white  border border-gray-200 dark:border-slate-700 dark:bg-slate-800  shadow-md p-4 sm:p-6 min-h-[360px] max-h-[500px]">
+      <h3 className="text-base sm:text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200 text-center sm:text-left">
         Income by Category
       </h3>
 

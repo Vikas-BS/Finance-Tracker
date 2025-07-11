@@ -32,18 +32,16 @@ const Home = () =>{
 
 
     return (
-    <div className="min-h-screen w-screen flex items-center justify-center bg-white">
-      {user ? (
-        <div className="text-center min-h-screen w-screen bg-white">
-          <DashboardCards/>
-           
-
-        </div>
-      ) : (
-        <p>Loading user info...</p>
-      )}
-    </div>
-  );
+      <>
+        {user ? (
+          <div className="text-center min-h-screen w-screen bg-white ">
+            <DashboardCards />
+          </div>
+        ) : (
+          <p>Loading user info...</p>
+        )}
+      </>
+    );
 };
 
 export default Home;

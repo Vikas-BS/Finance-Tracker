@@ -18,7 +18,11 @@ module.exports = {
           DEFAULT: '#ef4444',
           dark: '#b91c1c',
         },
+        slate:{
+           '950-custom': '#343541',
+        },
       },
+      
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui'],
       },

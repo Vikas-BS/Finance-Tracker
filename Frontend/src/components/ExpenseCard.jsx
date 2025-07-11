@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { MoreVertical } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 const ExpenseCard = ({ onTotalChange, onExpenseAdded }) => {
+  const {  theme} = useUser();
   const [showModal, setShowModal] = useState(false);
   const [customCategory, setCustomCategory] = useState("");
   const [formData, setFormData] = useState({
@@ -107,10 +109,15 @@ const ExpenseCard = ({ onTotalChange, onExpenseAdded }) => {
       {/* Expense Card */}
       <div
         onClick={() => navigate("/expensepage")}
-        className="w-full max-w-sm sm:max-w-md md:max-w-lg bg-gradient-to-tr from-red-100 via-white to-white text-black rounded-2xl p-4 sm:p-6 shadow-md border border-red-100 transform transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:cursor-pointer"
+        className={`w-full max-w-sm sm:max-w-md md:max-w-lg 
+  rounded-2xl p-4 sm:p-6 shadow-md border transform transition-transform duration-300 
+  hover:-translate-y-1 hover:scale-[1.02] hover:cursor-pointer 
+  ${theme === 'dark' 
+    ? 'bg-slate-800 border-none' 
+    : 'bg-gradient-to-tr from-red-100 via-white to-white border-red-100'}`}
       >
         <div className="flex justify-between items-start">
-          <h3 className="text-base sm:text-lg md:text-xl font-semibold text-red-700">
+          <h3 className="text-base sm:text-lg md:text-xl font-semibold text-red-700 dark:text-gray-200">
             Expenses
           </h3>
           <button
@@ -118,13 +125,13 @@ const ExpenseCard = ({ onTotalChange, onExpenseAdded }) => {
               e.stopPropagation();
               handleOpenModal();
             }}
-            className="p-2 bg-red-200 hover:bg-red-300 rounded-full transition"
+            className="p-2 bg-red-200 hover:bg-red-300 dark:hover:bg-none dark:bg-slate-700 rounded-full transition"
             title="Add Expense"
           >
-            <MoreVertical className="text-red-700" size={18} />
+            <MoreVertical className="text-red-700 dark:text-gray-200" size={18} />
           </button>
         </div>
-        <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-600 mt-4 truncate max-w-full">
+        <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-600 dark:text-gray-200 mt-4 truncate max-w-full">
           ₹ {total.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
         </div>
         <p className="text-sm text-gray-500 mt-1">Total expenses</p>

@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { MoreVertical } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 const IncomeCard = ({ onTotalChange, onIncomeAdded }) => {
+  const {  theme} = useUser();
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
@@ -105,10 +107,15 @@ const IncomeCard = ({ onTotalChange, onIncomeAdded }) => {
       {/* Income Card */}
       <div
         onClick={() => navigate("/incomepage")}
-        className="w-full max-w-sm sm:max-w-md md:max-w-lg bg-gradient-to-br from-green-100 via-white to-white text-black rounded-2xl p-4 sm:p-6 shadow-md border border-gray-100 transform transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:cursor-pointer"
+        className={`w-full max-w-sm sm:max-w-md md:max-w-lg 
+  rounded-2xl p-4 sm:p-6 shadow-md border 
+  transform transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:cursor-pointer 
+  ${theme === 'dark' 
+    ? 'bg-slate-800 border-none text-white' 
+    : 'bg-gradient-to-br from-green-100 via-white to-white border-gray-100 text-black'}`}
       >
         <div className="flex justify-between items-start">
-          <h3 className="text-base sm:text-lg md:text-xl font-semibold text-green-700">
+          <h3 className="text-base sm:text-lg md:text-xl font-semibold text-green-700 dark:text-gray-200">
             Income
           </h3>
           <button
@@ -116,13 +123,13 @@ const IncomeCard = ({ onTotalChange, onIncomeAdded }) => {
               e.stopPropagation();
               handleOpenModal();
             }}
-            className="p-2 bg-green-200 hover:bg-green-300 rounded-full transition"
+            className="p-2 bg-green-200 hover:bg-green-300  dark:hover:bg-none dark:bg-slate-700 rounded-full transition"
             title="Add Income"
           >
-            <MoreVertical className="text-green-700" size={18} />
+            <MoreVertical className="text-green-700 dark:text-gray-200 " size={18} />
           </button>
         </div>
-        <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-700 mt-4 truncate max-w-full">
+        <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-700 dark:text-gray-200 mt-4 truncate max-w-full">
           ₹ {total.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
         </div>
         <p className="text-sm text-gray-500 mt-1">Total income</p>

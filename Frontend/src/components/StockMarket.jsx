@@ -113,7 +113,7 @@ const StockMarket = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter stock symbol"
-          className="w-full sm:max-w-xs px-4 py-2 bg-white text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full sm:max-w-xs px-4 py-2 bg-white dark:bg-slate-600 text-black dark:text-gray-200 border border-gray-300 dark:border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           onClick={addStock}
@@ -133,7 +133,7 @@ const StockMarket = () => {
           stockData.map((stock) => (
             <div
               key={stock.symbol}
-              className="relative w-full bg-white border border-gray-200 rounded-xl p-5 shadow-md text-center overflow-hidden"
+              className="relative w-full bg-white dark:bg-slate-700 border border-gray-200 dark:border-none rounded-xl p-5 shadow-md text-center overflow-hidden"
             >
               <button
                 onClick={() => deleteStock(stock.symbol)}
@@ -143,7 +143,7 @@ const StockMarket = () => {
                 <Trash2 size={18} strokeWidth={2} />
               </button>
 
-              <h2 className="text-xl font-bold text-gray-800">
+              <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
                 {stock.symbol}
               </h2>
               <p className="text-3xl font-extrabold text-blue-600 mt-2">
@@ -151,7 +151,9 @@ const StockMarket = () => {
               </p>
               <p
                 className={`mt-1 text-sm ${
-                  stock.change >= 0 ? "text-green-600" : "text-red-600"
+                  stock.change >= 0
+                    ? "text-green-600"
+                    : "text-red-600 dark:text-red-400"
                 }`}
               >
                 {stock.change >= 0 ? "▲" : "▼"} {stock.change} ({stock.percent}
