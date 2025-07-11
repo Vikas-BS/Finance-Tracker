@@ -81,7 +81,7 @@ const Login = () => {
         <div className="flex justify-center ">
           <button
             onClick={() => login()}
-            className="w-full flex justify-center items-center gap-2 px-4 py-2 border rounded text-slate-100 bg-white/10 hover:bg-white/20 transition"
+            className=" flex justify-center items-center gap-2 px-4 py-2 border rounded text-slate-100 bg-white/10 hover:bg-white/20 transition"
           >
             <img
               src="https://developers.google.com/identity/images/g-logo.png"
