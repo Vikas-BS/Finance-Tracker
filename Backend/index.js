@@ -24,6 +24,7 @@ app.use('/api/income', incomeRoutes);
 app.use('/api/expense', expenseRoutes);
 app.use('/api/home',homeRoutes);
 app.use('/api/user',userRoutes);
+app.options("*", cors());
 app.use('/api/stock',stockRoutes);
 app.get('/' ,(req,res) =>{
   res.json("hello");
