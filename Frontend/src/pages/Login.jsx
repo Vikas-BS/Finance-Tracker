@@ -34,12 +34,6 @@ const Login = () => {
       toast.error("Error during login");
     }
   };
-  const login = useGoogleLogin({
-    onSuccess: handleGoogleSuccess,
-    onError: () => console.log("Google login failed"),
-    auto_select: false,
-  });
-
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
       const res = await fetch(
@@ -73,6 +67,12 @@ const Login = () => {
       toast.error("Error during Google login");
     }
   };
+
+  const login = useGoogleLogin({
+    onSuccess: handleGoogleSuccess, 
+    onError: () => console.log("Google login failed"),
+    auto_select: false,
+  });
 
   return (
     <div className="min-h-screen w-screen flex items-center justify-center bg-slate-900 ">
