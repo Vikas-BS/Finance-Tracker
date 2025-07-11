@@ -1,6 +1,6 @@
 import AuthForm from "../components/AuthForm";
 import { useNavigate } from "react-router-dom";
-import { useGoogleLogin } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import { toast } from "react-toastify";
 import { useUser } from "../context/UserContext";
 
@@ -68,28 +68,18 @@ const Login = () => {
     }
   };
 
-  const login = useGoogleLogin({
-    onSuccess: handleGoogleSuccess, 
-    onError: () => console.log("Google login failed"),
-    auto_select: false,
-  });
+
 
   return (
     <div className="min-h-screen w-screen flex items-center justify-center bg-slate-900 ">
       <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-xl p-6 sm:p-8 space-y-6 bg-slate-800  rounded-lg shadow-md transition-all duration-300">
         <AuthForm type="login" onSubmit={handleLogin} />
         <div className="flex justify-center ">
-          <button
-            onClick={() => login()}
-            className=" flex justify-center items-center gap-2 px-4 py-2 border rounded text-slate-100 bg-white/10 hover:bg-white/20 transition"
-          >
-            <img
-              src="https://developers.google.com/identity/images/g-logo.png"
-              alt="Google logo"
-              className="w-5 h-5"
-            />
-            <span>Sign in with Google</span>
-          </button>
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => console.log('Google login failed')}
+            
+          />
         </div>
 
         <p className="text-md text-center  text-slate-500">

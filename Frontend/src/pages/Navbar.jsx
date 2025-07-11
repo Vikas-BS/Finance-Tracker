@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { useUser } from "../context/UserContext";
+import { Moon, Sun } from "lucide-react";
 
 const Navbar = () => {
   const { user, setUser, theme, toogleTheme } = useUser();
