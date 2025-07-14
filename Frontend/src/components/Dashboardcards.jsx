@@ -14,7 +14,7 @@ const DashboardCards = () => {
   const [expenseTrigger, setExpenseTrigger] = useState(0);
 
   return (
-    <div className="w-full h-screen px-4 py-6 sm:px-6 md:px-8 lg:px-12 bg-white flex flex-col dark:bg-slate-950-custom  ">
+    <div className="w-full  px-4 py-6 sm:px-6 md:px-8 lg:px-12 bg-white flex flex-col dark:bg-slate-950-custom  ">
       <div className="w-full max-w-[1280px] flex flex-wrap gap-10 m-3 justify-center">
         <div className="w-full sm:w-[48%] lg:w-[30%] flex justify-center">
           <div className="w-full max-w-sm">
