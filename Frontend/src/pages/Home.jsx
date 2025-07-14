@@ -32,8 +32,10 @@ const Home = () => {
           </div>
         
       ) : (
-        
+        <div className="flex w-screen justify-center items-center min-h-screen bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200">
           <p>Loading user info...</p>
+        </div>
+          
         
       )}
     </div>
