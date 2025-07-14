@@ -15,6 +15,7 @@ const Home = () => {
       const data = await res.json();
       if (res.ok && data.user) {
         setUser(data.user);
+        console.log(res);
       } else {
         toast.error("User fetch failed:", data.message);
       }
