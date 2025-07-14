@@ -9,14 +9,13 @@ const Home = () => {
 
   const fetchUser = async () => {
     try {
-      const res = await api.get(`/api/home`, {
+      const res = await api.get('/api/home', {
         credentials: "include",
       });
-      if (res.ok && data.user) {
-        setUser(data.user);
-        console.log(res);
+      if (res.data?.user) {
+        setUser(res.data.user);
       } else {
-        toast.error("User fetch failed:", data.message);
+        toast.error("User fetch failed:", res.data?.message);
       }
     } catch (err) {
       toast.error("Error fetching user:", err);
