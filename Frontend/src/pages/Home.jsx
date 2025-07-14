@@ -24,7 +24,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-white  flex items-center justify-center px-4 sm:px-6 md:px-8 py-8">
+    <div>
       {user ? (
         
           <div className="w-full max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl">
