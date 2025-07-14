@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
 import DashboardCards from "../components/Dashboardcards";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchUser = async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/home`, {
-      method: "GET",
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/home`, {
+        method: "GET",
+        credentials: "include",
+      });
 
-      credentials: "include",
-    });
-    const data = await res.json();
-
-    if (res.ok) {
-      setUser(data.user);
-    } else {
-      console.error(data.message);
+      const data = await res.json();
+      if (res.ok && data.user) {
+        setUser(data.user);
+      } else {
+        toast.error("User fetch failed:", data.message);
+      }
+    } catch (err) {
+      toast.error("Error fetching user:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -24,19 +31,17 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="w-full">
-      {user ? (
-        
-          <div className="text-center min-h-screen w-screen bg-white">
-            <DashboardCards />
-          </div>
-        
-      ) : (
-        <div className="flex w-screen justify-center items-center min-h-screen bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200">
+    <div className="min-h-screen w-full bg-white dark:bg-slate-950 transition-colors">
+      {loading ? (
+        <div className="flex justify-center items-center h-screen text-gray-700 dark:text-gray-200">
           <p>Loading user info...</p>
         </div>
-          
-        
+      ) : user ? (
+        <DashboardCards />
+      ) : (
+        <div className="flex justify-center items-center h-screen text-red-500 dark:text-red-300">
+          <p>User not authenticated.</p>
+        </div>
       )}
     </div>
   );
