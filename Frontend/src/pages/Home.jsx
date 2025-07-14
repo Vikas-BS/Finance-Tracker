@@ -24,17 +24,17 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-full">
       {user ? (
         
-          <div className="w-full max-w-screen">
+          <div className="text-center min-h-screen w-screen bg-white">
             <DashboardCards />
           </div>
         
       ) : (
-        <div className="flex justify-center items-center min-h-screen bg-white dark:bg-slate-950-custom text-gray-700 dark:text-gray-200">
+        
           <p>Loading user info...</p>
-        </div>
+        
       )}
     </div>
   );
