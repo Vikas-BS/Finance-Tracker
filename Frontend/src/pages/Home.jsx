@@ -27,7 +27,7 @@ const Home = () => {
     <div>
       {user ? (
         
-          <div className="w-full max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl">
+          <div className="w-full max-w-screen">
             <DashboardCards />
           </div>
         
