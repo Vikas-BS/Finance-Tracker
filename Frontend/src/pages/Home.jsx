@@ -12,8 +12,6 @@ const Home = () => {
       const res = await api.get(`/api/home`, {
         credentials: "include",
       });
-
-      const data = await res.json();
       if (res.ok && data.user) {
         setUser(data.user);
         console.log(res);
