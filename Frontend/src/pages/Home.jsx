@@ -31,7 +31,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-slate-950 transition-colors">
+    <div className="min-h-screen w-full p-6 bg-white dark:bg-slate-950-custom transition-colors">
       {loading ? (
         <div className="flex justify-center items-center h-screen text-gray-700 dark:text-gray-200">
           <p>Loading user info...</p>

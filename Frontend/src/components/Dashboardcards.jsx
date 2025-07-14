@@ -14,7 +14,7 @@ const DashboardCards = () => {
   const [expenseTrigger, setExpenseTrigger] = useState(0);
 
   return (
-    <div className="w-full px-4 py-8 bg-white dark:bg-slate-950 transition-all">
+    <div className="w-full px-4 py-8 bg-white dark:bg-slate-950-custom transition-all">
       <div className="max-w-screen-2xl mx-auto space-y-10">
 
         {/* Balance, Income, Expense Cards */}

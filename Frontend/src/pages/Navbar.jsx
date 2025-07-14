@@ -143,7 +143,7 @@ const Navbar = () => {
             </button>
 
             {open && (
-              <ul className="absolute right-0 mt-2 w-44 bg-white border rounded-xl shadow-xl z-50 py-2 text-sm text-gray-700 animate-fadeIn">
+              <ul className="absolute right-0 mt-2 w-44 bg-white border dark:bg-black/80 rounded-xl shadow-xl z-50 py-2 text-sm text-gray-700 dark:text-gray-200 animate-fadeIn">
                 <li
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                   onClick={() => {
