@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: 'https://finance-tracker-flax-pi.vercel.app', 
+  origin: 'https://finance-tracker-hazel-pi-89.vercel.app', 
   credentials: true
 }));
 app.use(express.json());
