@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DashboardCards from "../components/Dashboardcards";
 import { toast } from "react-toastify";
+import api from "../../utils/axios";
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -8,9 +9,7 @@ const Home = () => {
 
   const fetchUser = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/home`, {
-        method: "GET",
-        credentials: "include",
+      const res = await api.get(`/api/home`, {
       });
 
       const data = await res.json();
