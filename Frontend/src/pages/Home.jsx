@@ -10,6 +10,7 @@ const Home = () => {
   const fetchUser = async () => {
     try {
       const res = await api.get(`/api/home`, {
+        credentials: "include",
       });
 
       const data = await res.json();
