@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: 'https://finance-tracker-hazel-pi-89.vercel.app', 
+  origin: 'http://localhost:5173', 
   credentials: true
 }));
 app.use(express.json());
@@ -36,4 +36,4 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
   .catch(err => console.error('Mongo error:', err));
 
-app.listen(PORT, () => console.log(`Server running on `));
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

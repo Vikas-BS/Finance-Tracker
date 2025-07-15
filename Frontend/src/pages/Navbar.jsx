@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { useUser } from "../context/UserContext";
 import { Moon, Sun } from "lucide-react";
+import { AuthService } from "../services/AuthService";
 
 const Navbar = () => {
   const { user, setUser, theme, toogleTheme } = useUser();
@@ -61,16 +62,23 @@ const Navbar = () => {
   if (hideOn.includes(location.pathname)) return null;
 
   const handleLogout = async () => {
-    try {
-      await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
-        method: "POST",
-        credentials: "include",
-      });
+    const res = await AuthService.logout()
+    if(res.status===200)
+    {
       setUser(null);
       navigate("/login");
-    } catch (err) {
-      toast.error("Logout Failed");
+
     }
+    // try {
+    //   await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
+    //     method: "POST",
+    //     credentials: "include",
+    //   });
+    //   setUser(null);
+    //   navigate("/login");
+    // } catch (err) {
+    //   toast.error("Logout Failed");
+    // }
   };
 
   return (
@@ -81,7 +89,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4 ">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="bg-blue-400 hover:bg-blue-700  dark:text-white p-2 rounded-md transition"
+            className="bg-blue-400 hover:bg-blue-700   dark:text-white p-2 rounded-md transition"
             title="Open menu"
           >
             <svg
@@ -107,7 +115,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <button
             onClick={toogleTheme}
-            className="ml-4 px-3 py-1 bg-white dark:bg-gray-700 dark:text-white rounded-full text-sm flex items-center gap-2 transition"
+            className="ml-4 px-3 py-1  bg-white dark:bg-gray-700 dark:text-white rounded-full text-sm flex items-center gap-2 transition"
           >
             {theme === "light" ? (
               <>

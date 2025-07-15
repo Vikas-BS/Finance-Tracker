@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { toast } from "react-toastify";
+import api from "../../utils/axios";
 
 
 const StockMarket = () => {
@@ -11,10 +12,8 @@ const StockMarket = () => {
 
   const fetchStocksFromBackend = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/stock`, {
-        credentials: "include",
-      });
-      const data = await res.json();
+      const res = await api.get('/api/stock');
+      const data = res.data;
 
       if (data?.stocks?.length > 0) {
         const symbols = data.stocks;
@@ -85,13 +84,10 @@ const StockMarket = () => {
 
   const deleteStock = async (symbol) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/stock/${symbol}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      const res = await api.delete(`/api/stock/${symbol}`);
 
-      if (res.ok) {
-        const updatedStocks = await res.json();
+      if (res.status=== 200) {
+        const updatedStocks = res.data;
         setStockData((prev) =>
           prev.filter((stock) => updatedStocks.includes(stock.symbol))
         );

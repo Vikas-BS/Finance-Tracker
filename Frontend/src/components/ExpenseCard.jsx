@@ -3,9 +3,11 @@ import { toast } from "react-toastify";
 import { MoreVertical } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import api from "../../utils/axios";
+import { AuthExp } from "../services/AuthExp";
 
 const ExpenseCard = ({ onTotalChange, onExpenseAdded }) => {
-  const {  theme} = useUser();
+  const { theme } = useUser();
   const [showModal, setShowModal] = useState(false);
   const [customCategory, setCustomCategory] = useState("");
   const [formData, setFormData] = useState({
@@ -20,23 +22,25 @@ const ExpenseCard = ({ onTotalChange, onExpenseAdded }) => {
 
   // Fetch total expense
   const fetchExpense = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/expense`, {
-        method: "GET",
-        credentials: "include",
-      });
+  const res = await AuthExp.getExpense();
+    const data = res.data;
+    const total = data.reduce((acc, item) => acc + Number(item.amount), 0);
+    setTotal(total);
+    onTotalChange(total);
+    console.log(data)
 
-      const data = await res.json();
-      if (res.ok) {
-        const total = data.reduce((acc, item) => acc + Number(item.amount), 0);
-        setTotal(total);
-        onTotalChange(total);
-      } else {
-        toast.error(data.message || "Failed to fetch expenses.");
-      }
-    } catch (err) {
-      toast.error("Fetch error: " + err.message);
-    }
+
+
+
+    // try {
+    //   const res = await api.get("/api/expense");
+    //   const data = res.data;
+    //   const total = data.reduce((acc, item) => acc + Number(item.amount), 0);
+    //   setTotal(total);
+    //   onTotalChange(total);
+    // } catch (err) {
+    //   toast.error("Fetch error: " + err.message);
+    // }
   };
 
   const handleSubmit = async () => {
@@ -48,22 +52,15 @@ const ExpenseCard = ({ onTotalChange, onExpenseAdded }) => {
       return;
     }
 
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/expense`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
+    const res = await AuthExp.addExpense({
           ...formData,
           category: finalCategory,
-          amount: Number(formData.amount),
-        }),
-      });
+          amount: Number(formData.amount),     
 
-      const data = await res.json();
-      if (res.ok) {
+    });
+    console.log(res)
+    
+    if (res.status === 200 || res.status=== 201) {
         await fetchExpense();
         handleCloseModal();
         toast.success("Expense added successfully!");
@@ -71,9 +68,35 @@ const ExpenseCard = ({ onTotalChange, onExpenseAdded }) => {
       } else {
         toast.error("Failed to add expense.");
       }
-    } catch (err) {
-      toast.error("An error occurred. Please try again.");
-    }
+
+
+    // try {
+    //   const res = await api.post(
+    //     "/api/expense",
+    //     {
+    //       ...formData,
+    //       category: finalCategory,
+    //       amount: Number(formData.amount),
+    //     },
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       }
+    //     },
+
+        
+    //   );
+    //   if (res.status === 200 || res.status=== 201) {
+    //     await fetchExpense();
+    //     handleCloseModal();
+    //     toast.success("Expense added successfully!");
+    //     if (typeof onExpenseAdded === "function") onExpenseAdded();
+    //   } else {
+    //     toast.error("Failed to add expense.");
+    //   }
+    // } catch (err) {
+    //   toast.error("An error occurred. Please try again.");
+    // }
   };
 
   useEffect(() => {
@@ -111,10 +134,12 @@ const ExpenseCard = ({ onTotalChange, onExpenseAdded }) => {
         onClick={() => navigate("/expensepage")}
         className={`w-full max-w-sm sm:max-w-md md:max-w-lg 
   rounded-2xl p-4 sm:p-6 shadow-md border transform transition-transform duration-300 
-  hover:-translate-y-1 hover:scale-[1.02] hover:cursor-pointer 
-  ${theme === 'dark' 
-    ? 'bg-slate-800 border-none' 
-    : 'bg-gradient-to-tr from-red-100 via-white to-white border-red-100'}`}
+  hover:-translate-y-1 hover:scale-[1.02] hover:cursor-pointer hover:shadow-2xl 
+  ${
+    theme === "dark"
+      ? "bg-slate-800 border-none"
+      : "bg-gradient-to-tr from-red-100 via-white to-white border-red-100"
+  }`}
       >
         <div className="flex justify-between items-start">
           <h3 className="text-base sm:text-lg md:text-xl font-semibold text-red-700 dark:text-gray-200">
@@ -128,7 +153,10 @@ const ExpenseCard = ({ onTotalChange, onExpenseAdded }) => {
             className="p-2 bg-red-200 hover:bg-red-300 dark:hover:bg-none dark:bg-slate-700 rounded-full transition"
             title="Add Expense"
           >
-            <MoreVertical className="text-red-700 dark:text-gray-200" size={18} />
+            <MoreVertical
+              className="text-red-700 dark:text-gray-200"
+              size={18}
+            />
           </button>
         </div>
         <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-600 dark:text-gray-200 mt-4 truncate max-w-full">

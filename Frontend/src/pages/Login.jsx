@@ -3,35 +3,41 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { toast } from "react-toastify";
 import { useUser } from '../context/UserContext';
+import { AuthService } from '../services/AuthService';
 
 const Login = () => {
   const {setUser} = useUser();
   const navigate = useNavigate();
 
   const handleLogin = async (data) => {
-    try {
-      const res = await fetch( `${import.meta.env.VITE_API_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials:'include',
-        body: JSON.stringify(data),
-        
-      });
-
-      const result = await res.json();
-      if (res.ok) {
-       
-        if (result.user.name) {
-          setUser(result.user.name);
-        }
-        navigate('/home');
-        toast.success('Loggedin Successfuly!!!');
-      } else {
-        toast.error('Login failed');
-      }
-    } catch (err) {
-      toast.error('Error during login');
+    const res = await AuthService.login(data.email,data.password)
+    if(res.status===200)
+    {
+      navigate('/home');
     }
+    // try {
+    //   const res = await fetch( `${import.meta.env.VITE_API_URL}/api/auth/login`, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     credentials:'include',
+    //     body: JSON.stringify(data),
+        
+    //   });
+
+    //   const result = await res.json();
+    //   if (res.ok) {
+       
+    //     if (result.user.name) {
+    //       setUser(result.user.name);
+    //     }
+    //     navigate('/home');
+    //     toast.success('Loggedin Successfuly!!!');
+    //   } else {
+    //     toast.error('Login failed');
+    //   }
+    // } catch (err) {
+    //   toast.error('Error during login');
+    // }
   };
 
   const handleGoogleSuccess = async (credentialResponse) => {

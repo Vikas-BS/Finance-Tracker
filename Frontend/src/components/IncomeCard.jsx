@@ -3,9 +3,10 @@ import { toast } from "react-toastify";
 import { MoreVertical } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import { AuthInc } from "../services/AuthInc";
 
 const IncomeCard = ({ onTotalChange, onIncomeAdded }) => {
-  const {  theme} = useUser();
+  const { theme } = useUser();
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
@@ -20,21 +21,16 @@ const IncomeCard = ({ onTotalChange, onIncomeAdded }) => {
 
   // Fetch income data
   const fetchIncome = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/income`, {
-        method: "GET",
-        credentials: "include",
-      });
-      const data = await res.json();
-      if (res.ok) {
-        const totalAmount = data.reduce((acc, item) => acc + Number(item.amount), 0);
-        setTotal(totalAmount);
-        onTotalChange(totalAmount);
-      } else {
-        toast.error(data.message || "Failed to fetch income.");
-      }
-    } catch (err) {
-      toast.error("Fetch error: " + err.message);
+    const res = await AuthInc.getIncome();
+    if (res.status === 200) {
+      const data = res.data;
+
+      const totalAmount = data.reduce(
+        (acc, item) => acc + Number(item.amount),
+        0
+      );
+      setTotal(totalAmount);
+      onTotalChange(totalAmount);
     }
   };
 
@@ -56,36 +52,27 @@ const IncomeCard = ({ onTotalChange, onIncomeAdded }) => {
   }, [showModal]);
 
   const handleSubmit = async () => {
-    const finalCategory = formData.category === "Others" ? customCategory : formData.category;
+    const finalCategory =
+      formData.category === "Others" ? customCategory : formData.category;
 
     if (!formData.title || !formData.amount || !formData.category) {
       toast.error("Please fill all required fields.");
       return;
     }
 
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/income`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          ...formData,
-          category: finalCategory,
-          amount: Number(formData.amount),
-        }),
-      });
+    const res = await AuthInc.addIncome({
+      ...formData,
+      category: finalCategory,
+      amount: Number(formData.amount),
+    });
 
-      const data = await res.json();
-      if (res.ok) {
-        await fetchIncome();
-        handleCloseModal();
-        toast.success("Income added successfully!");
-        if (typeof onIncomeAdded === "function") onIncomeAdded();
-      } else {
-        toast.error("Failed to add income, Please add proper income.");
-      }
-    } catch (err) {
-      toast.error("An error occurred. Please try again.");
+    if (res.status === 200 || res.status === 201) {
+      await fetchIncome();
+      handleCloseModal();
+      toast.success("Income added successfully!");
+      if (typeof onIncomeAdded === "function") onIncomeAdded();
+    } else {
+      toast.error("Failed to add income.");
     }
   };
 
@@ -109,10 +96,12 @@ const IncomeCard = ({ onTotalChange, onIncomeAdded }) => {
         onClick={() => navigate("/incomepage")}
         className={`w-full max-w-sm sm:max-w-md md:max-w-lg 
   rounded-2xl p-4 sm:p-6 shadow-md border 
-  transform transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:cursor-pointer 
-  ${theme === 'dark' 
-    ? 'bg-slate-800 border-none text-white' 
-    : 'bg-gradient-to-br from-green-100 via-white to-white border-gray-100 text-black'}`}
+  transform transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:cursor-pointer hover:shadow-2xl 
+  ${
+    theme === "dark"
+      ? "bg-slate-800 border-none text-white"
+      : "bg-gradient-to-br from-green-100 via-white to-white border-gray-100 text-black"
+  }`}
       >
         <div className="flex justify-between items-start">
           <h3 className="text-base sm:text-lg md:text-xl font-semibold text-green-700 dark:text-gray-200">
@@ -126,7 +115,10 @@ const IncomeCard = ({ onTotalChange, onIncomeAdded }) => {
             className="p-2 bg-green-200 hover:bg-green-300  dark:hover:bg-none dark:bg-slate-700 rounded-full transition"
             title="Add Income"
           >
-            <MoreVertical className="text-green-700 dark:text-gray-200 " size={18} />
+            <MoreVertical
+              className="text-green-700 dark:text-gray-200 "
+              size={18}
+            />
           </button>
         </div>
         <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-700 dark:text-gray-200 mt-4 truncate max-w-full">
@@ -139,7 +131,9 @@ const IncomeCard = ({ onTotalChange, onIncomeAdded }) => {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 px-2 sm:px-4">
           <div className="bg-white w-full max-w-md sm:max-w-lg p-4 sm:p-6 rounded-2xl shadow-xl overflow-y-auto max-h-[90vh] transform scale-95 opacity-0 animate-fadeInModal relative">
-            <h2 className="text-lg sm:text-xl font-bold mb-4 text-green-700">Add Income</h2>
+            <h2 className="text-lg sm:text-xl font-bold mb-4 text-green-700">
+              Add Income
+            </h2>
 
             <input
               ref={titleRef}
@@ -165,7 +159,9 @@ const IncomeCard = ({ onTotalChange, onIncomeAdded }) => {
               onChange={handleChange}
               className="w-full p-3 border bg-white text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300 mb-4"
             >
-              <option value="" disabled>Select Category</option>
+              <option value="" disabled>
+                Select Category
+              </option>
               <option>Salary</option>
               <option>Business</option>
               <option>Investments</option>

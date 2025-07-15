@@ -30,8 +30,8 @@ export const registerUser = async (req, res) => {
   
     res.cookie("authcookie", token, {
       httpOnly: true, 
-      secure: true,
-      sameSite: "None", 
+      secure: false,
+      sameSite: "Lax", 
       maxAge: 86400000,
       path:"/",
     });
@@ -50,6 +50,7 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(req);
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: 'Invalid credentials' });
 
@@ -64,8 +65,8 @@ export const loginUser = async (req, res) => {
     
     res.cookie("authcookie", token, {
       httpOnly: true, 
-      secure: true,
-      sameSite: "None", 
+      secure: false,
+      sameSite: "Lax", 
       maxAge: 86400000,
       path:"/",
     });
@@ -105,8 +106,8 @@ export const googleLogin = async (req, res) => {
     
     res.cookie("authcookie", jwtToken, {
       httpOnly: true,
-      secure: true,
-      sameSite: "None",
+      secure: false,
+      sameSite: "Lax",
       path:"/",
       maxAge: 86400000,
     });
@@ -143,7 +144,7 @@ export const logOutUser = async (req , res) =>{
   res.clearCookie("authcookie" ,{
     httpOnly: true,
     sameSite: "None",
-    secure: true, 
+    secure: false, 
     path:"/",
   });
   res.status(200).json({ message: "Logged out successfully" });

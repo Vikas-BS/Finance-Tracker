@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { AuthInc } from "../services/AuthInc";
 
 const categoryIcons = {
   Salary: "💼",
@@ -19,15 +20,13 @@ const Income = () => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
-  const ITEMS_PER_PAGE = 5;
+  const ITEMS_PER_PAGE =5 ;
 
   const fetchIncome = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/income`, {
-        credentials: "include",
-      });
-      const data = await res.json();
-      if (res.ok) {
+      const res = await AuthInc.getIncome();
+      const data = res.data;
+      if (res.data) {
         const sorted = data.sort((a, b) => new Date(b.date) - new Date(a.date));
         setIncomes(sorted);
         setFilteredIncomes(sorted);
@@ -68,11 +67,11 @@ const Income = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-white dark:bg-slate-800 py-10 px-4 sm:px-10">
+    <div className="min-h-screen w-full bg-white dark:bg-slate-800 py-10 px-4 sm:px-10">
       <div className="max-w-4xl mx-auto">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 bg-white text-gray-700 dark:bg-slate-700 dark:text-gray-200 hover:text-black mb-6"
+          className="flex p-2 pr-5 items-center gap-2 bg-white text-gray-700 dark:bg-slate-700 dark:text-gray-200 hover:text-black mb-6"
         >
           <ArrowLeft size={20} /> Back
         </button>
@@ -138,7 +137,7 @@ const Income = () => {
 
                 <p className="text-sm text-gray-500">
                   Category:{" "}
-                  <span className="font-medium text-gray-700">
+                  <span className="font-medium text-gray-700 dark:text-gray-500">
                     {item.category}
                   </span>
                 </p>

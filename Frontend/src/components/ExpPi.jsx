@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import api from "../../utils/axios";
 
 const BASE_COLORS = [
-  "#4CAF50", "#2196F3", "#FF9800", "#9C27B0",
-  "#F44336", "#00BCD4", "#FFEB3B", "#795548",
-  "#03A9F4", "#8BC34A", "#FF5722", "#E91E63",
+  "#4CAF50",
+  "#2196F3",
+  "#FF9800",
+  "#9C27B0",
+  "#F44336",
+  "#00BCD4",
+  "#FFEB3B",
+  "#795548",
+  "#03A9F4",
+  "#8BC34A",
+  "#FF5722",
+  "#E91E63",
 ];
 
 const ExpensePieChart = ({ onChange }) => {
@@ -18,37 +22,39 @@ const ExpensePieChart = ({ onChange }) => {
   const [categoryColorMap, setCategoryColorMap] = useState({});
 
   const fetchExpense = async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/expense`, {
-      credentials: 'include',
-    });
+    try {
+      const res = await api.get("/api/expense");
 
-    const result = await res.json();
-    const rawData = Array.isArray(result) ? result : result.data || [];
+      const rawData = Array.isArray(res.data) ? res.data : [];
 
-    const categoryMap = {};
-    rawData.forEach((item) => {
-      const category = item.category;
-      const amount = Number(item.amount);
-      categoryMap[category] = (categoryMap[category] || 0) + amount;
-    });
+      const categoryMap = {};
+      rawData.forEach((item) => {
+        const category = item.category;
+        const amount = Number(item.amount);
+        categoryMap[category] = (categoryMap[category] || 0) + amount;
+      });
 
-    const chartData = Object.entries(categoryMap).map(([name, value]) => ({
-      name,
-      value,
-    }));
+      const chartData = Object.entries(categoryMap).map(([name, value]) => ({
+        name,
+        value,
+      }));
 
-    const newColorMap = { ...categoryColorMap };
-    let colorIndex = Object.keys(newColorMap).length;
+      const newColorMap = { ...categoryColorMap };
+      let colorIndex = Object.keys(newColorMap).length;
 
-    chartData.forEach((item) => {
-      if (!newColorMap[item.name]) {
-        newColorMap[item.name] = BASE_COLORS[colorIndex % BASE_COLORS.length];
-        colorIndex++;
-      }
-    });
+      chartData.forEach((item) => {
+        if (!newColorMap[item.name]) {
+          newColorMap[item.name] = BASE_COLORS[colorIndex % BASE_COLORS.length];
+          colorIndex++;
+        }
+      });
 
-    setCategoryColorMap(newColorMap);
-    setExpenseData(chartData);
+      setCategoryColorMap(newColorMap);
+      setExpenseData(chartData);
+    } catch (err) {
+      console.error("Error fetching expenses:", err);
+      toast.error("Failed to fetch expenses");
+    }
   };
 
   useEffect(() => {
@@ -72,7 +78,6 @@ const ExpensePieChart = ({ onChange }) => {
               cy="50%"
               outerRadius="80%"
               paddingAngle={2}
-              
             >
               {expenseData.map((entry, index) => (
                 <Cell

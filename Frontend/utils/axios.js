@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
+const domain = "localhost"
 const api = axios.create({
     baseURL:import.meta.env.VITE_API_URL,
-    withCredentials:true,
+   headers: { 'Content-Type': 'application/json' },
 });
 api.interceptors.response.use(
     (res) => res,
@@ -15,4 +15,10 @@ api.interceptors.response.use(
         return Promise.reject(err);
     }
 );
+
+api.interceptors.request.use((config)=>{
+    config.headers.domain = domain
+    config.withCredentials = true ;
+    return config
+})
 export default api;
