@@ -96,7 +96,7 @@ const IncomeCard = ({ onTotalChange, onIncomeAdded }) => {
         onClick={() => navigate("/incomepage")}
         className={`w-full max-w-sm sm:max-w-md md:max-w-lg 
   rounded-2xl p-4 sm:p-6 shadow-md border 
-  transform transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:cursor-pointer hover:shadow-2xl 
+  transform transition-transform duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:cursor-pointer 
   ${
     theme === "dark"
       ? "bg-slate-800 border-none text-white"

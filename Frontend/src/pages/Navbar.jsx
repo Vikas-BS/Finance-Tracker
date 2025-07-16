@@ -5,6 +5,7 @@ import { useUser } from "../context/UserContext";
 import { Moon, Sun } from "lucide-react";
 import { AuthService } from "../services/AuthService";
 
+
 const Navbar = () => {
   const { user, setUser, theme, toogleTheme } = useUser();
   const location = useLocation();
@@ -110,9 +111,12 @@ const Navbar = () => {
           <h1 className="text-lg sm:text-xl md:text-2xl font-sans italic tracking-wide break-words">
             Hi, Welcome back {user?.name || "User"} 👋🏻
           </h1>
+          
         </div>
+        
 
         <div className="flex items-center gap-4">
+          
           <button
             onClick={toogleTheme}
             className="ml-4 px-3 py-1  bg-white dark:bg-gray-700 dark:text-white rounded-full text-sm flex items-center gap-2 transition"
@@ -153,7 +157,7 @@ const Navbar = () => {
             {open && (
               <ul className="absolute right-0 mt-2 w-44 bg-white border dark:bg-black/80 rounded-xl shadow-xl z-50 py-2 text-sm text-gray-700 dark:text-gray-200 animate-fadeIn">
                 <li
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-black border-none cursor-pointer"
                   onClick={() => {
                     navigate("/profile");
                   }}
@@ -161,7 +165,7 @@ const Navbar = () => {
                   Profile
                 </li>
                 <li
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-black cursor-pointer"
                   onClick={handleLogout}
                 >
                   Logout

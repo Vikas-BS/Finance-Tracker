@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { MoreVertical } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
-import api from "../../utils/axios";
 import { AuthExp } from "../services/AuthExp";
 
 const ExpenseCard = ({ onTotalChange, onExpenseAdded }) => {
@@ -27,7 +26,6 @@ const ExpenseCard = ({ onTotalChange, onExpenseAdded }) => {
     const total = data.reduce((acc, item) => acc + Number(item.amount), 0);
     setTotal(total);
     onTotalChange(total);
-    console.log(data)
 
 
 
@@ -58,7 +56,6 @@ const ExpenseCard = ({ onTotalChange, onExpenseAdded }) => {
           amount: Number(formData.amount),     
 
     });
-    console.log(res)
     
     if (res.status === 200 || res.status=== 201) {
         await fetchExpense();
